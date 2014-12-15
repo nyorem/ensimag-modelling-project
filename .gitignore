@@ -1,0 +1,14 @@
+*.txt
+*.o
+
+*.pdf
+*.ps
+
+.DS_Store
+*~
+.*.swp
+
+main
+
+tex/*
+!tex/report.tex
