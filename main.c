@@ -304,7 +304,7 @@ int main(int argc, char *argv[])
     /* CornerCuttingSubdivisionClosedPolygon( 0.52, 0.41 , N, P1, P2); */
     /* CornerCuttingSubdivisionClosedPolygon( 0.75, 0.25 , N, P1, P2); */
     /* GeneralizedFourPointsSchemeSubdivisionClosedPolygon(1./8., N, P1, P2); */
-    /* UniformSplinesSubdivisionClosedPolygon(3, N, P1, P2); */
+    UniformSplinesSubdivisionClosedPolygon(3, N, P1, P2);
 
 	PostscriptOutputClosedPolygon( fout, 2 * N, P2);
 
