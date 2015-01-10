@@ -1,0 +1,5 @@
+Building: make
+
+Report: tex/report.tex
+
+Generate the screenshots (gnuplot must be installed): ./gen_screenshots.sh
