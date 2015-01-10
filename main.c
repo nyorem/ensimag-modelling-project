@@ -193,8 +193,7 @@ double LMaxDistance( int N, Point *P, Point *Q)
     return(d);
 }
 
-void CornerCuttingSubdivisionClosedPolygon( double A, double B, int N, Point *P, Point *Q)
-{
+void CornerCuttingSubdivisionClosedPolygon (double A, double B, int N, Point *P, Point *Q) {
     int i;
 
     for (i=0; i<N-1; i++)
@@ -211,8 +210,7 @@ void CornerCuttingSubdivisionClosedPolygon( double A, double B, int N, Point *P,
     Q[2*i+1].y = B * P[i].y + (1. - B) * P[0].y;
 }
 
-void ChaikinSubdivisionClosedPolygon( int N, Point *P, Point *Q)
-{
+void ChaikinSubdivisionClosedPolygon (int N, Point *P, Point *Q) {
     int i;
 
     for (i=0; i<N-1; i++)
@@ -229,8 +227,7 @@ void ChaikinSubdivisionClosedPolygon( int N, Point *P, Point *Q)
     Q[2*i+1].y = 1./4. * P[i].y + 3./4. * P[0].y;
 }
 
-void GeneralizedFourPointsSchemeSubdivisionClosedPolygon (double epsilon, int N, Point *P, Point *Q)
-{
+void GeneralizedFourPointsSchemeSubdivisionClosedPolygon (double epsilon, int N, Point *P, Point *Q) {
     int i;
 
     for (i=0; i<N; i++)
@@ -249,7 +246,7 @@ void UniformSplinesSubdivisionClosedPolygon (int K, int N, Point *P, Point *Q) {
         Q[2*i].y = Q[2*i+1].y = P[i].y;
     }
 
-    // k averages
+    // K averages
     for (int k = 0; k < K; ++k) {
         Point P0;
         P0.x = Q[0].x;
@@ -266,18 +263,18 @@ void UniformSplinesSubdivisionClosedPolygon (int K, int N, Point *P, Point *Q) {
     }
 }
 
-int main(int argc, char *argv[])
-{
+int main (int argc, char *argv[]) {
     /* FILE *fout; */
     char FileName[100];
 
-    long nbiter = (argc >= 2) ? strtol(argv[1], NULL, 10) : 10;
-    long nummode = (argc >= 3) ? strtol(argv[2], NULL, 10) : 0;
+    long nbiter = (argc >= 2) ? strtol(argv[1], NULL, 10) : 10,
+         nummode = (argc >= 3) ? strtol(argv[2], NULL, 10) : 0;
 
     int N, i;
 
     /* fout = fopen( "PostscriptOutput.ps", "w"); */
 
+    // Initial polygon
     N = 4;
 
     P1[0].x = 100.;
@@ -297,37 +294,35 @@ int main(int argc, char *argv[])
     GnuplotOutputClosedPolygon( "Subdivision0.txt", 4, P1);
 
 
-    for (i=0; i<nbiter; i++)
-    {
-
+    for (i=0; i<nbiter; i++) {
         switch (nummode) {
             // Chaikin
             case 0:
-                ChaikinSubdivisionClosedPolygon( N, P1, P2);
+                ChaikinSubdivisionClosedPolygon(N, P1, P2);
                 break;
 
-                // Corner cutting
+            // Corner cutting
             case 1:
                 CornerCuttingSubdivisionClosedPolygon( 0.22 + 0.5, 0.22 , N, P1, P2);
                 break;
 
-                // 4 points scheme
+            // 4 points scheme
             case 2:
                 GeneralizedFourPointsSchemeSubdivisionClosedPolygon(1./8., N, P1, P2);
                 break;
 
-                // Generalized 4 points scheme
+            // Generalized 4 points scheme
             case 3:
-                GeneralizedFourPointsSchemeSubdivisionClosedPolygon(1., N, P1, P2);
+                GeneralizedFourPointsSchemeSubdivisionClosedPolygon(0.1, N, P1, P2);
                 break;
 
-                // Uniform splines
+            // Uniform splines
             case 4:
                 UniformSplinesSubdivisionClosedPolygon(3, N, P1, P2);
                 break;
 
             default:
-                ChaikinSubdivisionClosedPolygon( N, P1, P2);
+                ChaikinSubdivisionClosedPolygon(N, P1, P2);
                 break;
         }
 
@@ -348,3 +343,4 @@ int main(int argc, char *argv[])
 
     /* fclose( fout); */
 }
+
